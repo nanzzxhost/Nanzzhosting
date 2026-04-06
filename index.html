@@ -11,161 +11,136 @@
     
     <style>
         body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            min-height: 100vh;
-            font-family: 'Poppins', sans-serif;
-            background-color: #000000;
-            color: white;
-            overflow-x: hidden;
+            margin: 0; padding: 0; width: 100%; min-height: 100vh;
+            font-family: 'Poppins', sans-serif; background-color: #000000; color: white;
         }
-
-        /* Container khusus untuk background agar tidak menutupi form */
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1; /* Di belakang konten */
-        }
-
-        /* Konten utama di atas background */
-        .content-wrapper {
-            position: relative;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 40px 20px;
-        }
-
+        #particles-js { position: fixed; width: 100%; height: 100%; z-index: 1; }
+        .content-wrapper { position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; }
         .glass-card {
-            background: rgba(15, 15, 15, 0.7); /* Lebih gelap agar input terlihat jelas */
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: rgba(15, 15, 15, 0.8); backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px;
         }
-
-        .btn-gradient {
-            background: linear-gradient(90deg, #007cf0 0%, #6d28d9 100%);
-            transition: all 0.3s ease;
-        }
-
-        .btn-gradient:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 124, 240, 0.4);
-        }
-
-        /* Styling Pop-up Dark Mode */
-        .swal2-popup {
-            background: #111 !important;
-            border: 1px solid #333 !important;
-            color: #fff !important;
-            border-radius: 20px !important;
-        }
+        .btn-gradient { background: linear-gradient(90deg, #007cf0 0%, #6d28d9 100%); transition: all 0.3s ease; }
+        .btn-delete { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; transition: all 0.3s ease; }
+        .btn-delete:hover { background: #ef4444; color: white; shadow: 0 0 15px rgba(239, 68, 68, 0.5); }
+        .swal2-popup { background: #111 !important; color: white !important; border-radius: 20px !important; border: 1px solid #333 !important; }
     </style>
 </head>
 <body>
 
     <div id="particles-js"></div>
 
-    <div class="content-wrapper">
+    <div class="content-wrapper w-full max-w-2xl mx-auto">
         <div class="mb-10 text-center">
             <div class="w-16 h-16 bg-cyan-500 rounded-full mx-auto mb-4 flex items-center justify-center shadow-[0_0_25px_rgba(6,182,212,0.6)]">
-                <span class="text-[10px] font-bold">NANZZ</span>
+                <span class="text-[10px] font-bold text-black">NANZZ</span>
             </div>
-            <h1 class="text-3xl font-extrabold tracking-[0.25em] text-white">NANZZ<span class="text-cyan-400 text-shadow">HOSTING</span></h1>
-            <p class="text-[9px] tracking-[0.4em] text-gray-500 mt-2 uppercase font-semibold">Premium Result Management System</p>
+            <h1 class="text-3xl font-extrabold tracking-[0.25em] text-white">NANZZ<span class="text-cyan-400">HOSTING</span></h1>
+            <p class="text-[9px] tracking-[0.4em] text-gray-500 mt-2 uppercase font-semibold text-center">Management System</p>
         </div>
 
-        <div class="glass-card w-full max-w-md p-7 mb-6">
-            <div class="flex items-center mb-5 text-blue-400 text-xs font-bold uppercase tracking-widest">
-                <span class="mr-2">⚡</span> UPDATE CONFIGURATION
+        <div class="glass-card w-full p-6 mb-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <h3 class="text-blue-400 text-[10px] font-bold mb-4 uppercase tracking-widest">Update Config</h3>
+                <input type="text" id="configName" placeholder="Result Name" class="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-sm mb-3 focus:outline-none focus:border-blue-500 text-white">
+                <button onclick="updateConfig()" class="w-full btn-gradient py-2 rounded-lg text-xs font-bold uppercase">Update</button>
             </div>
-            
-            <div class="space-y-5">
-                <div>
-                    <label class="block text-[10px] font-bold text-gray-400 mb-1.5 uppercase ml-1">Nama Result</label>
-                    <input type="text" placeholder="Result Admin Nanzz" class="w-full bg-black/60 border border-white/10 rounded-xl p-3.5 text-sm focus:outline-none focus:border-blue-500 transition-all text-white">
-                </div>
-                <div>
-                    <label class="block text-[10px] font-bold text-gray-400 mb-1.5 uppercase ml-1">Sender Murni</label>
-                    <input type="text" placeholder="admin@nanzzhosting" class="w-full bg-black/60 border border-white/10 rounded-xl p-3.5 text-sm focus:outline-none focus:border-blue-500 transition-all text-white">
-                </div>
-                <button onclick="showAlert('update')" class="w-full btn-gradient py-3.5 rounded-xl font-bold text-xs tracking-[0.2em] mt-2 uppercase shadow-xl">
-                    Update Configuration
-                </button>
+            <div>
+                <h3 class="text-orange-400 text-[10px] font-bold mb-4 uppercase tracking-widest">Add Email Manually</h3>
+                <input type="email" id="newEmail" placeholder="example@gmail.com" class="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-sm mb-3 focus:outline-none focus:border-orange-500 text-white">
+                <button onclick="addManualEmail()" class="w-full bg-white text-black py-2 rounded-lg text-xs font-bold uppercase">Add Receiver</button>
             </div>
         </div>
 
-        <div class="glass-card w-full max-w-md p-7">
-            <div class="flex items-center mb-5 text-orange-400 text-xs font-bold uppercase tracking-widest">
-                <span class="mr-2">📧</span> ADD RECEIVER
-            </div>
+        <div class="glass-card w-full p-6">
+            <h3 class="text-purple-400 text-[10px] font-bold mb-6 uppercase tracking-[0.3em] text-center">Daftar Email Aktif (Top 10)</h3>
             
-            <div class="space-y-5">
-                <div>
-                    <label class="block text-[10px] font-bold text-gray-400 mb-1.5 uppercase ml-1">Email Target</label>
-                    <input type="email" placeholder="target@nanzzhosting.com" class="w-full bg-black/60 border border-white/10 rounded-xl p-3.5 text-sm focus:outline-none focus:border-orange-500 transition-all text-white">
-                </div>
-                <div>
-                    <label class="block text-[10px] font-bold text-gray-400 mb-1.5 uppercase ml-1">Limit Jasteb</label>
-                    <input type="number" placeholder="100" class="w-full bg-black/60 border border-white/10 rounded-xl p-3.5 text-sm focus:outline-none focus:border-orange-500 transition-all text-white">
-                </div>
-                <button onclick="showAlert('add')" class="w-full bg-white text-black py-3.5 rounded-xl font-bold text-xs tracking-[0.2em] mt-2 uppercase hover:bg-gray-200 transition-all">
-                    Add Receiver
-                </button>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                    <thead>
+                        <tr class="border-b border-white/10 text-gray-500 text-[10px] uppercase">
+                            <th class="pb-3 px-2">Email</th>
+                            <th class="pb-3 px-2">Limit / Info</th>
+                            <th class="pb-3 px-2 text-right">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelBody" class="divide-y divide-white/5">
+                        </tbody>
+                </table>
             </div>
         </div>
     </div>
 
     <script>
-        // Inisialisasi Particles.js untuk background jaringan
+        // Particles tetep nyala biar gacor
         particlesJS("particles-js", {
             "particles": {
-                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                "number": { "value": 60 },
                 "color": { "value": "#ffffff" },
-                "shape": { "type": "circle" },
-                "opacity": { "value": 0.2, "random": false },
-                "size": { "value": 2, "random": true },
-                "line_linked": {
-                    "enable": true,
-                    "distance": 150,
-                    "color": "#ffffff",
-                    "opacity": 0.15,
-                    "width": 1
-                },
-                "move": { "enable": true, "speed": 1.5, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
-            },
-            "interactivity": {
-                "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } },
-                "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 0.5 } } }
-            },
-            "retina_detect": true
+                "opacity": { "value": 0.1 },
+                "size": { "value": 2 },
+                "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.1, "width": 1 },
+                "move": { "enable": true, "speed": 1 }
+            }
         });
 
-        // Fungsi Pop-up
-        function showAlert(type) {
-            if (type === 'update') {
-                Swal.fire({
-                    title: 'Berhasil!',
-                    text: 'Konfigurasi Nanzzhosting telah diperbarui.',
-                    icon: 'success',
-                    confirmButtonColor: '#007cf0'
+        // SEDOT DATA DARI SHEETS (CUMA 10)
+        function sedotData() {
+            google.script.run.withSuccessHandler(function(data) {
+                const body = document.getElementById('tabelBody');
+                body.innerHTML = '';
+                if(!data || data.length === 0) {
+                    body.innerHTML = '<tr><td colspan="3" class="py-4 text-center text-gray-500">Gak ada data FF</td></tr>';
+                    return;
+                }
+                data.forEach((item, index) => {
+                    const row = `
+                        <tr id="row-${index}">
+                            <td class="py-4 px-2 text-gray-300">${item.email}</td>
+                            <td class="py-4 px-2 text-cyan-400">${item.limit}</td>
+                            <td class="py-4 px-2 text-right">
+                                <button onclick="deleteEmail(${index}, '${item.email}')" class="btn-delete px-3 py-1 rounded-md text-[10px] font-bold uppercase">Hapus</button>
+                            </td>
+                        </tr>
+                    `;
+                    body.innerHTML += row;
                 });
-            } else {
-                Swal.fire({
-                    title: 'Berhasil!',
-                    text: 'Penerima baru telah ditambahkan.',
-                    icon: 'success',
-                    confirmButtonColor: '#f97316'
-                });
-            }
+            }).nyedotDataFF();
         }
+
+        function updateConfig() {
+            const val = document.getElementById('configName').value;
+            google.script.run.withSuccessHandler(() => {
+                Swal.fire({ icon: 'success', title: 'Updated', text: 'Config '+val+' Berhasil!', background: '#111' });
+            }).saveConfig(val);
+        }
+
+        function addManualEmail() {
+            const email = document.getElementById('newEmail').value;
+            google.script.run.withSuccessHandler(() => {
+                Swal.fire({ icon: 'success', title: 'Added', text: 'Email ditambahkan!', background: '#111' });
+                sedotData();
+            }).addEmailGS(email);
+        }
+
+        function deleteEmail(idx, email) {
+            Swal.fire({
+                title: 'Hapus?', text: email, icon: 'warning',
+                showCancelButton: true, confirmButtonColor: '#ef4444', background: '#111'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    google.script.run.withSuccessHandler(() => {
+                        sedotData();
+                        Swal.fire({ title: 'Deleted!', icon: 'success', background: '#111', timer: 1000, showConfirmButton: false });
+                    }).deleteEmailGS(idx);
+                }
+            });
+        }
+
+        window.onload = () => { 
+            sedotData(); 
+            setInterval(sedotData, 15000); // Auto refresh tiap 15 detik
+        };
     </script>
 </body>
 </html>
