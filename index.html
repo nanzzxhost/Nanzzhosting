@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nanzzhosting Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            background-color: #000000;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Container khusus untuk background agar tidak menutupi form */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1; /* Di belakang konten */
+        }
+
+        /* Konten utama di atas background */
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .glass-card {
+            background: rgba(15, 15, 15, 0.7); /* Lebih gelap agar input terlihat jelas */
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .btn-gradient {
+            background: linear-gradient(90deg, #007cf0 0%, #6d28d9 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-gradient:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 124, 240, 0.4);
+        }
+
+        /* Styling Pop-up Dark Mode */
+        .swal2-popup {
+            background: #111 !important;
+            border: 1px solid #333 !important;
+            color: #fff !important;
+            border-radius: 20px !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="particles-js"></div>
+
+    <div class="content-wrapper">
+        <div class="mb-10 text-center">
+            <div class="w-16 h-16 bg-cyan-500 rounded-full mx-auto mb-4 flex items-center justify-center shadow-[0_0_25px_rgba(6,182,212,0.6)]">
+                <span class="text-[10px] font-bold">NANZZ</span>
+            </div>
+            <h1 class="text-3xl font-extrabold tracking-[0.25em] text-white">NANZZ<span class="text-cyan-400 text-shadow">HOSTING</span></h1>
+            <p class="text-[9px] tracking-[0.4em] text-gray-500 mt-2 uppercase font-semibold">Premium Result Management System</p>
+        </div>
+
+        <div class="glass-card w-full max-w-md p-7 mb-6">
+            <div class="flex items-center mb-5 text-blue-400 text-xs font-bold uppercase tracking-widest">
+                <span class="mr-2">⚡</span> UPDATE CONFIGURATION
+            </div>
+            
+            <div class="space-y-5">
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 mb-1.5 uppercase ml-1">Nama Result</label>
+                    <input type="text" placeholder="Result Admin Nanzz" class="w-full bg-black/60 border border-white/10 rounded-xl p-3.5 text-sm focus:outline-none focus:border-blue-500 transition-all text-white">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 mb-1.5 uppercase ml-1">Sender Murni</label>
+                    <input type="text" placeholder="admin@nanzzhosting" class="w-full bg-black/60 border border-white/10 rounded-xl p-3.5 text-sm focus:outline-none focus:border-blue-500 transition-all text-white">
+                </div>
+                <button onclick="showAlert('update')" class="w-full btn-gradient py-3.5 rounded-xl font-bold text-xs tracking-[0.2em] mt-2 uppercase shadow-xl">
+                    Update Configuration
+                </button>
+            </div>
+        </div>
+
+        <div class="glass-card w-full max-w-md p-7">
+            <div class="flex items-center mb-5 text-orange-400 text-xs font-bold uppercase tracking-widest">
+                <span class="mr-2">📧</span> ADD RECEIVER
+            </div>
+            
+            <div class="space-y-5">
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 mb-1.5 uppercase ml-1">Email Target</label>
+                    <input type="email" placeholder="target@nanzzhosting.com" class="w-full bg-black/60 border border-white/10 rounded-xl p-3.5 text-sm focus:outline-none focus:border-orange-500 transition-all text-white">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 mb-1.5 uppercase ml-1">Limit Jasteb</label>
+                    <input type="number" placeholder="100" class="w-full bg-black/60 border border-white/10 rounded-xl p-3.5 text-sm focus:outline-none focus:border-orange-500 transition-all text-white">
+                </div>
+                <button onclick="showAlert('add')" class="w-full bg-white text-black py-3.5 rounded-xl font-bold text-xs tracking-[0.2em] mt-2 uppercase hover:bg-gray-200 transition-all">
+                    Add Receiver
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Inisialisasi Particles.js untuk background jaringan
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#ffffff" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.2, "random": false },
+                "size": { "value": 2, "random": true },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.15,
+                    "width": 1
+                },
+                "move": { "enable": true, "speed": 1.5, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
+            },
+            "interactivity": {
+                "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } },
+                "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 0.5 } } }
+            },
+            "retina_detect": true
+        });
+
+        // Fungsi Pop-up
+        function showAlert(type) {
+            if (type === 'update') {
+                Swal.fire({
+                    title: 'Berhasil!',
+                    text: 'Konfigurasi Nanzzhosting telah diperbarui.',
+                    icon: 'success',
+                    confirmButtonColor: '#007cf0'
+                });
+            } else {
+                Swal.fire({
+                    title: 'Berhasil!',
+                    text: 'Penerima baru telah ditambahkan.',
+                    icon: 'success',
+                    confirmButtonColor: '#f97316'
+                });
+            }
+        }
+    </script>
+</body>
+</html>
